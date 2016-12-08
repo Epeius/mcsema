@@ -32,5 +32,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"
 
 void inlineSpecials(const llvm::PassManagerBuilder &, llvm::PassManagerBase &);
+void TestBB(const llvm::PassManagerBuilder &, llvm::PassManagerBase &);
 
 #endif
