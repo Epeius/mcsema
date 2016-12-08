@@ -17,7 +17,7 @@ import argparse
 import struct
 #import syslog
 import traceback
-
+import terminate_functions
 import itertools
 
 #hack for IDAPython to see google protobuf lib
@@ -30,7 +30,7 @@ def xrange(begin, end=None, step=1):
     else:
         return iter(itertools.count().next, begin)
 
-_DEBUG = False
+_DEBUG = True
 _DEBUG_FILE = sys.stderr
 
 EXTERNALS = set()
@@ -1650,6 +1650,12 @@ def recoverBlock(startEA):
 
         # get curEA follows
         follows = [cref for cref in crefs]
+        
+        if isCall(curEA) and len(follows) == 1 and getFunctionName(follows[0]) in terminate_functions.TERMINATE_FUNC:
+            # call terminate function, no follows
+            DEBUG("Terminate function\n")
+            b.endEA = nextEA
+            return b   
 
         if follows == [nextEA] or isCall(curEA):
             # there is only one following branch, to the next instruction
@@ -2096,7 +2102,7 @@ if __name__ == "__main__":
         help="Exported functions are defined in std_defs. Useful when lifting DLLs"
         )
     parser.add_argument("-d", "--debug", action="store_true",
-        default=False,
+        default=True,
         help="Enable verbose debugging mode"
         )
     parser.add_argument("--debug_output", type=argparse.FileType('w'),

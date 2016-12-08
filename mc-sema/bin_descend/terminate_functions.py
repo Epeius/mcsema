@@ -1,0 +1,1 @@
+TERMINATE_FUNC = ['.exit']
