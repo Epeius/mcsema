@@ -688,6 +688,13 @@ void bfs_cfg_visitor::discover_vertex(Vertex u, const Graph &g) const {
     BranchInst::Create(nextBB, curLLVMBlock);
   }
 
+  // we need to insert a terminator to the basic block has no successor and
+  // the last instruction is "call _exit" like (this happens since we regard
+  // these bbs as terminate bbs in IDA)
+  if (follows.size() == 0 && curLLVMBlock->getTerminator() == nullptr) {
+      ReturnInst::Create(this->F->getContext(), curLLVMBlock);
+  }
+
   return;
 }
 
