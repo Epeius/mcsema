@@ -35,7 +35,7 @@ def set_ida_name(arch):
         arch_suffix = ""
 
     if os.name == "posix":
-        ida_name = "idal"
+        ida_name = "idaq"
     else:
         ida_name = "idaq"
 
@@ -64,6 +64,11 @@ def do_entry_symbol(arg):
 
     return return_args
 
+def do_debug_output(arg):
+    return_args = ['--debug_output']
+    return_args.extend(decommafy(arg))
+    return return_args
+
 def do_func_map(arg):
     return_args = []
 
@@ -84,6 +89,7 @@ if __name__ == "__main__":
                     lambda x: x == '-d': lambda y: ['--debug'],
                     lambda x: x == '--pie-mode': lambda y: ['--pie-mode'],
                     lambda x: x.startswith("-march=") : set_ida_arch,
+                    lambda x: x.startswith("-debug-output=") : do_debug_output,
                   }
 
     input_file = None
