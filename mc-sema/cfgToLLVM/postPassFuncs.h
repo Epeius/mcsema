@@ -33,5 +33,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 void inlineSpecials(const llvm::PassManagerBuilder &, llvm::PassManagerBase &);
 void TestBB(const llvm::PassManagerBuilder &, llvm::PassManagerBase &);
-
+void registerAFLPass(const llvm::PassManagerBuilder &, llvm::PassManagerBase &);
 #endif

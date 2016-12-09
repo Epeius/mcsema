@@ -50,6 +50,6 @@ void registerPostPasses(llvm::PassManagerBuilder &PMB) {
   llvm::errs() << "registering passes\n";
   PMB.addExtension(PassManagerBuilder::EP_EarlyAsPossible, inlineSpecials);
   PMB.addExtension(PassManagerBuilder::EP_EarlyAsPossible, TestBB);
-
+  PMB.addExtension(PassManagerBuilder::EP_OptimizerLast, registerAFLPass);
   return;
 }
