@@ -677,7 +677,7 @@ static InstTransResult translate_JMPm(NativeModulePtr natM,
 
   if (ip->has_ext_call_target()) {
     std::string s = ip->get_ext_call_target()->getSymbolName();
-    if (width == width) {
+    if (width == x86_64::REG_SIZE) {
         ret = x86_64::doCallPCExtern(block, s, true);
     } else {
         ret = x86::doCallPCExtern(block, s, true);
