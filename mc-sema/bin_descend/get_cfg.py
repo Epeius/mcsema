@@ -1069,7 +1069,9 @@ def isStartOfFunction(ea):
 def isSaneReference(ea):
     if isInternalCode(ea) and idc.ItemHead(ea) == ea:
         return True
-    elif isInData(ea, ea+1) and idc.ItemHead(ea) == ea:
+    ##elif isInData(ea, ea+1) and idc.ItemHead(ea) == ea:
+    # use end-size to determine data to avoid break-access like
+    elif isInData(ea, ea+1) and (idc.ItemEnd(ea) - idc.ItemSize(ea)) == ea:
         return True
     else:
         return False
